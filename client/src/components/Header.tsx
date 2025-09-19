@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { Activity, User, Bell, Menu, X } from "lucide-react"
+import { Link, useLocation } from "wouter"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import {
@@ -11,10 +12,13 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { ThemeToggle } from "./ThemeToggle"
+import { useAuth } from "@/hooks/useAuth"
+import { NotificationCenter } from "./NotificationCenter"
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [notifications] = useState(3) //todo: remove mock functionality
+  const [location] = useLocation()
+  const { user } = useAuth()
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -27,27 +31,51 @@ export function Header() {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-6">
-          <Button variant="ghost" data-testid="nav-tests">Tests</Button>
-          <Button variant="ghost" data-testid="nav-book">Book Now</Button>
-          <Button variant="ghost" data-testid="nav-track">Track Order</Button>
-          <Button variant="ghost" data-testid="nav-reports">Reports</Button>
+          <Button 
+            variant={location === '/' ? 'default' : 'ghost'} 
+            asChild 
+            data-testid="nav-dashboard"
+          >
+            <Link href="/">Dashboard</Link>
+          </Button>
+          <Button 
+            variant={location === '/book-test' ? 'default' : 'ghost'} 
+            asChild 
+            data-testid="nav-book"
+          >
+            <Link href="/book-test">Book Test</Link>
+          </Button>
+          <Button 
+            variant={location === '/track-order' ? 'default' : 'ghost'} 
+            asChild 
+            data-testid="nav-track"
+          >
+            <Link href="/track-order">Track Order</Link>
+          </Button>
+          <Button 
+            variant={location === '/reports' ? 'default' : 'ghost'} 
+            asChild 
+            data-testid="nav-reports"
+          >
+            <Link href="/reports">Reports</Link>
+          </Button>
+          {((user as any)?.role === 'admin' || (user as any)?.role === 'staff') && (
+            <Button 
+              variant={location === '/admin' || location === '/staff' ? 'default' : 'ghost'} 
+              asChild 
+              data-testid="nav-admin"
+            >
+              <Link href={(user as any)?.role === 'admin' ? '/admin' : '/staff'}>
+                {(user as any)?.role === 'admin' ? 'Admin' : 'Staff'}
+              </Link>
+            </Button>
+          )}
         </nav>
 
         {/* Right Side Actions */}
         <div className="flex items-center space-x-2">
           {/* Notifications */}
-          <Button variant="ghost" size="icon" className="relative" data-testid="button-notifications">
-            <Bell className="h-5 w-5" />
-            {notifications > 0 && (
-              <Badge 
-                variant="destructive" 
-                className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center text-xs"
-                data-testid="badge-notification-count"
-              >
-                {notifications}
-              </Badge>
-            )}
-          </Button>
+          <NotificationCenter />
 
           {/* User Menu */}
           <DropdownMenu>
@@ -57,13 +85,25 @@ export function Header() {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-56">
-              <DropdownMenuLabel data-testid="text-user-name">Dr. Sarah Johnson</DropdownMenuLabel>
+              <DropdownMenuLabel data-testid="text-user-name">
+                {(user as any)?.firstName && (user as any)?.lastName 
+                  ? `${(user as any).firstName} ${(user as any).lastName}` 
+                  : (user as any)?.email || 'User'}
+              </DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem data-testid="menu-profile">Profile</DropdownMenuItem>
-              <DropdownMenuItem data-testid="menu-orders">My Orders</DropdownMenuItem>
-              <DropdownMenuItem data-testid="menu-reports">My Reports</DropdownMenuItem>
+              <DropdownMenuItem asChild data-testid="menu-profile">
+                <Link href="/profile">Profile</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild data-testid="menu-track">
+                <Link href="/track-order">My Orders</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild data-testid="menu-reports">
+                <Link href="/reports">My Reports</Link>
+              </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem data-testid="menu-logout">Logout</DropdownMenuItem>
+              <DropdownMenuItem asChild data-testid="menu-logout">
+                <a href="/api/logout">Logout</a>
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
 
@@ -86,10 +126,50 @@ export function Header() {
       {isMenuOpen && (
         <div className="md:hidden border-t bg-background">
           <nav className="flex flex-col space-y-2 p-4">
-            <Button variant="ghost" className="justify-start" data-testid="mobile-nav-tests">Tests</Button>
-            <Button variant="ghost" className="justify-start" data-testid="mobile-nav-book">Book Now</Button>
-            <Button variant="ghost" className="justify-start" data-testid="mobile-nav-track">Track Order</Button>
-            <Button variant="ghost" className="justify-start" data-testid="mobile-nav-reports">Reports</Button>
+            <Button 
+              variant={location === '/' ? 'default' : 'ghost'} 
+              className="justify-start" 
+              asChild 
+              data-testid="mobile-nav-dashboard"
+            >
+              <Link href="/">Dashboard</Link>
+            </Button>
+            <Button 
+              variant={location === '/book-test' ? 'default' : 'ghost'} 
+              className="justify-start" 
+              asChild 
+              data-testid="mobile-nav-book"
+            >
+              <Link href="/book-test">Book Test</Link>
+            </Button>
+            <Button 
+              variant={location === '/track-order' ? 'default' : 'ghost'} 
+              className="justify-start" 
+              asChild 
+              data-testid="mobile-nav-track"
+            >
+              <Link href="/track-order">Track Order</Link>
+            </Button>
+            <Button 
+              variant={location === '/reports' ? 'default' : 'ghost'} 
+              className="justify-start" 
+              asChild 
+              data-testid="mobile-nav-reports"
+            >
+              <Link href="/reports">Reports</Link>
+            </Button>
+            {((user as any)?.role === 'admin' || (user as any)?.role === 'staff') && (
+              <Button 
+                variant={location === '/admin' || location === '/staff' ? 'default' : 'ghost'} 
+                className="justify-start" 
+                asChild 
+                data-testid="mobile-nav-admin"
+              >
+                <Link href={(user as any)?.role === 'admin' ? '/admin' : '/staff'}>
+                  {(user as any)?.role === 'admin' ? 'Admin Dashboard' : 'Staff Dashboard'}
+                </Link>
+              </Button>
+            )}
           </nav>
         </div>
       )}

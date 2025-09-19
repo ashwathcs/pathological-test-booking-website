@@ -4,13 +4,41 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { useAuth } from "@/hooks/useAuth";
 import NotFound from "@/pages/not-found";
-import Home from "@/pages/Home";
+import Landing from "@/pages/Landing";
+import Dashboard from "@/pages/Dashboard";
+import BookTest from "@/pages/BookTest";
+import Payment from "@/pages/Payment";
+import TrackOrder from "@/pages/TrackOrder";
+import Reports from "@/pages/Reports";
+import Profile from "@/pages/Profile";
+import AdminDashboardPage from "@/pages/AdminDashboard";
+import StaffDashboard from "@/pages/StaffDashboard";
 
 function Router() {
+  const { isAuthenticated, isLoading, user } = useAuth();
+
   return (
     <Switch>
-      <Route path="/" component={Home}/>
+      {isLoading || !isAuthenticated ? (
+        <Route path="/" component={Landing} />
+      ) : (
+        <>
+          <Route path="/" component={Dashboard} />
+          <Route path="/book-test" component={BookTest} />
+          <Route path="/payment" component={Payment} />
+          <Route path="/track-order" component={TrackOrder} />
+          <Route path="/reports" component={Reports} />
+          <Route path="/profile" component={Profile} />
+          {(user as any)?.role === 'admin' && (
+            <Route path="/admin" component={AdminDashboardPage} />
+          )}
+          {((user as any)?.role === 'staff' || (user as any)?.role === 'admin') && (
+            <Route path="/staff" component={StaffDashboard} />
+          )}
+        </>
+      )}
       <Route component={NotFound} />
     </Switch>
   );
