@@ -5,6 +5,7 @@ import { FadeInUp } from "@/components/animations/FadeInUp"
 import { StaggerContainer } from "@/components/animations/StaggerContainer"
 import { StaggerItem } from "@/components/animations/StaggerItem"
 import { CountUp } from "@/components/animations/CountUp"
+import { BikeAnimation } from "@/components/animations/BikeAnimation"
 import heroImage from "@assets/generated_images/Modern_medical_laboratory_hero_62d380d4.png"
 
 export function Hero() {
@@ -154,6 +155,13 @@ export function Hero() {
               </StaggerContainer>
             </div>
           </FadeInUp>
+          
+          {/* Bike Animation Section */}
+          <div className="lg:col-span-1">
+            <FadeInUp delay={0.5}>
+              <BikeAnimation />
+            </FadeInUp>
+          </div>
         </div>
       </div>
     </section>
