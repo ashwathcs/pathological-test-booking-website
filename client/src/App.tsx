@@ -25,25 +25,25 @@ function Router() {
   return (
     <AnimatePresence mode="wait">
       <Switch>
-      {isLoading || !isAuthenticated ? (
-        <Route path="/" component={Landing} />
-      ) : (
-        <>
-          <Route path="/" component={Dashboard} />
-          <Route path="/book-test" component={BookTest} />
-          <Route path="/payment" component={Payment} />
-          <Route path="/track-order" component={TrackOrder} />
-          <Route path="/reports" component={Reports} />
-          <Route path="/profile" component={Profile} />
-          {(user as any)?.role === 'admin' && (
-            <Route path="/admin" component={AdminDashboardPage} />
-          )}
-          {((user as any)?.role === 'staff' || (user as any)?.role === 'admin') && (
-            <Route path="/staff" component={StaffDashboard} />
-          )}
-        </>
-      )}
-      <Route component={NotFound} />
+        {isLoading || !isAuthenticated ? (
+          <Route path="/" component={Landing} />
+        ) : (
+          <>
+            <Route path="/" component={Dashboard} />
+            <Route path="/book-test" component={BookTest} />
+            <Route path="/payment" component={Payment} />
+            <Route path="/track-order" component={TrackOrder} />
+            <Route path="/reports" component={Reports} />
+            <Route path="/profile" component={Profile} />
+            {(user as any)?.role === 'admin' && (
+              <Route path="/admin" component={AdminDashboardPage} />
+            )}
+            {((user as any)?.role === 'staff' || (user as any)?.role === 'admin') && (
+              <Route path="/staff" component={StaffDashboard} />
+            )}
+          </>
+        )}
+        <Route component={NotFound} />
       </Switch>
     </AnimatePresence>
   );

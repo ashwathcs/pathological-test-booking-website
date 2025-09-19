@@ -20,7 +20,6 @@ export default function Landing() {
   ]
 
   const stats = [
-    { value: 50000, label: "Satisfied Customers", suffix: "+" },
     { value: 25, label: "Cities Covered", suffix: "+" },
     { value: 200, label: "Tests Available", suffix: "+" },
     { value: 99.9, label: "Accuracy Rate", suffix: "%" }
