@@ -11,6 +11,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet"
 import { ScrollArea } from "@/components/ui/scroll-area"
+import { motion, AnimatePresence } from "framer-motion"
 
 type NotificationType = "appointment" | "report" | "payment" | "reminder" | "system"
 
@@ -124,18 +125,38 @@ export function NotificationCenter() {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button variant="ghost" size="icon" className="relative" data-testid="button-notifications">
-          <Bell className="h-5 w-5" />
-          {unreadCount > 0 && (
-            <Badge 
-              variant="destructive" 
-              className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center text-xs"
-              data-testid="badge-notification-count"
+        <motion.div
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          transition={{ duration: 0.2 }}
+        >
+          <Button variant="ghost" size="icon" className="relative" data-testid="button-notifications">
+            <motion.div
+              animate={unreadCount > 0 ? { rotate: [0, -10, 10, 0] } : {}}
+              transition={{ duration: 2, repeat: Infinity, repeatDelay: 5 }}
             >
-              {unreadCount}
-            </Badge>
-          )}
-        </Button>
+              <Bell className="h-5 w-5" />
+            </motion.div>
+            <AnimatePresence>
+              {unreadCount > 0 && (
+                <motion.div
+                  initial={{ scale: 0, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  exit={{ scale: 0, opacity: 0 }}
+                  transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                >
+                  <Badge 
+                    variant="destructive" 
+                    className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center text-xs"
+                    data-testid="badge-notification-count"
+                  >
+                    {unreadCount}
+                  </Badge>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </Button>
+        </motion.div>
       </SheetTrigger>
 
       <SheetContent className="w-[400px] sm:w-[540px]">
@@ -177,14 +198,22 @@ export function NotificationCenter() {
                   </CardContent>
                 </Card>
               ) : (
-                notifications.map((notification) => (
-                  <Card 
-                    key={notification.id} 
-                    className={`${getPriorityColor(notification.priority)} border-l-4 ${
-                      !notification.read ? 'bg-accent/50' : ''
-                    }`}
-                    data-testid={`card-notification-${notification.id}`}
-                  >
+                <AnimatePresence>
+                  {notifications.map((notification, index) => (
+                    <motion.div
+                      key={notification.id}
+                      initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: -20, scale: 0.95 }}
+                      transition={{ duration: 0.3, delay: index * 0.05 }}
+                      whileHover={{ x: 5 }}
+                    >
+                      <Card 
+                        className={`${getPriorityColor(notification.priority)} border-l-4 ${
+                          !notification.read ? 'bg-accent/50' : ''
+                        }`}
+                        data-testid={`card-notification-${notification.id}`}
+                      >
                     <CardContent className="p-4">
                       <div className="flex items-start justify-between">
                         <div className="flex items-start space-x-3 flex-1">
@@ -197,7 +226,11 @@ export function NotificationCenter() {
                                 {notification.title}
                               </h4>
                               {!notification.read && (
-                                <div className="w-2 h-2 bg-primary rounded-full" />
+                                <motion.div 
+                                  className="w-2 h-2 bg-primary rounded-full"
+                                  animate={{ scale: [1, 1.2, 1] }}
+                                  transition={{ duration: 2, repeat: Infinity }}
+                                />
                               )}
                             </div>
                             <p className={`text-sm ${
@@ -213,30 +246,42 @@ export function NotificationCenter() {
                         
                         <div className="flex flex-col space-y-1 ml-2">
                           {!notification.read && (
+                            <motion.div
+                              whileHover={{ scale: 1.05 }}
+                              whileTap={{ scale: 0.95 }}
+                            >
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                onClick={() => markAsRead(notification.id)}
+                                className="h-6 px-2 text-xs"
+                                data-testid={`button-mark-read-${notification.id}`}
+                              >
+                                Mark read
+                              </Button>
+                            </motion.div>
+                          )}
+                          <motion.div
+                            whileHover={{ scale: 1.05, rotate: 90 }}
+                            whileTap={{ scale: 0.95 }}
+                          >
                             <Button
                               variant="ghost"
                               size="sm"
-                              onClick={() => markAsRead(notification.id)}
-                              className="h-6 px-2 text-xs"
-                              data-testid={`button-mark-read-${notification.id}`}
+                              onClick={() => deleteNotification(notification.id)}
+                              className="h-6 px-1"
+                              data-testid={`button-delete-${notification.id}`}
                             >
-                              Mark read
+                              <X className="h-3 w-3" />
                             </Button>
-                          )}
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => deleteNotification(notification.id)}
-                            className="h-6 px-1"
-                            data-testid={`button-delete-${notification.id}`}
-                          >
-                            <X className="h-3 w-3" />
-                          </Button>
+                          </motion.div>
                         </div>
                       </div>
-                    </CardContent>
-                  </Card>
-                ))
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                ))}
+                </AnimatePresence>
               )}
             </div>
           </ScrollArea>

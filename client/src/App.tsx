@@ -5,6 +5,8 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { useAuth } from "@/hooks/useAuth";
+import { useLenis } from "@/hooks/useLenis";
+import { AnimatePresence } from "framer-motion";
 import NotFound from "@/pages/not-found";
 import Landing from "@/pages/Landing";
 import Dashboard from "@/pages/Dashboard";
@@ -18,9 +20,11 @@ import StaffDashboard from "@/pages/StaffDashboard";
 
 function Router() {
   const { isAuthenticated, isLoading, user } = useAuth();
+  useLenis(); // Add smooth scrolling
 
   return (
-    <Switch>
+    <AnimatePresence mode="wait">
+      <Switch>
       {isLoading || !isAuthenticated ? (
         <Route path="/" component={Landing} />
       ) : (
@@ -40,7 +44,8 @@ function Router() {
         </>
       )}
       <Route component={NotFound} />
-    </Switch>
+      </Switch>
+    </AnimatePresence>
   );
 }
 

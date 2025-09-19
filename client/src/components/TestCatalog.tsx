@@ -11,6 +11,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { motion, AnimatePresence } from "framer-motion"
+import { FadeInUp } from "@/components/animations/FadeInUp"
+import { StaggerContainer } from "@/components/animations/StaggerContainer"
+import { StaggerItem } from "@/components/animations/StaggerItem"
 import bloodTestIcon from "@assets/generated_images/Blood_test_category_icon_690b88ed.png"
 import urineTestIcon from "@assets/generated_images/Urine_test_category_icon_a343c40b.png"
 

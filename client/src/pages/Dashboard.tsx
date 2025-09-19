@@ -5,6 +5,7 @@ import { Header } from "@/components/Header"
 import { Hero } from "@/components/Hero"
 import { PincodeChecker } from "@/components/PincodeChecker"
 import { TestCatalog } from "@/components/TestCatalog"
+import { PageTransition } from "@/components/animations/PageTransition"
 
 export default function Dashboard() {
   const { toast } = useToast()
@@ -41,13 +42,15 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      <Header />
-      <main>
-        <Hero />
-        <PincodeChecker />
-        <TestCatalog />
-      </main>
-    </div>
+    <PageTransition>
+      <div className="min-h-screen bg-background">
+        <Header />
+        <main>
+          <Hero />
+          <PincodeChecker />
+          <TestCatalog />
+        </main>
+      </div>
+    </PageTransition>
   )
 }
