@@ -12,13 +12,13 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { ThemeToggle } from "./ThemeToggle"
-import { useAuth } from "@/hooks/useAuth"
+import { useAuth } from "@/controllers"
 import { NotificationCenter } from "./NotificationCenter"
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [location] = useLocation()
-  const { user } = useAuth()
+  const { user, logout } = useAuth()
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -101,8 +101,10 @@ export function Header() {
                 <Link href="/reports">My Reports</Link>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem asChild data-testid="menu-logout">
-                <a href="/api/logout">Logout</a>
+              <DropdownMenuItem onClick={async () => {
+                await logout();
+              }} data-testid="menu-logout">
+                Logout
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

@@ -1,5 +1,5 @@
 import { useEffect } from "react"
-import { useAuth } from "@/hooks/useAuth"
+import { useAuth } from "@/controllers"
 import { useToast } from "@/hooks/use-toast"
 import { Header } from "@/components/Header"
 import { Hero } from "@/components/Hero"
@@ -19,9 +19,7 @@ export default function Dashboard() {
         description: "You are logged out. Logging in again...",
         variant: "destructive",
       })
-      setTimeout(() => {
-        window.location.href = "/api/login"
-      }, 500)
+      // User will be redirected to landing page by App.tsx routing logic
       return
     }
   }, [isAuthenticated, isLoading, toast])
