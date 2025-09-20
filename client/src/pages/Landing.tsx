@@ -10,6 +10,7 @@ import { FloatingIcon } from "@/components/animations/FloatingIcon"
 import { CountUp } from "@/components/animations/CountUp"
 import { PageTransition } from "@/components/animations/PageTransition"
 import heroImage from "@assets/generated_images/Modern_medical_laboratory_hero_62d380d4.png"
+import pathocare360Logo from "@assets/generated_images/Pathocare360_medical_logo_design_86d559b5.png"
 
 export default function Landing() {
   const features = [
@@ -38,12 +39,14 @@ export default function Landing() {
           <div className="container flex h-16 items-center justify-between px-4">
             <motion.div 
               whileHover={{ scale: 1.05 }}
-              className="flex items-center space-x-2"
+              className="flex items-center space-x-3"
             >
-              <FloatingIcon>
-                <Shield className="h-8 w-8 text-primary" />
-              </FloatingIcon>
-              <span className="text-xl font-bold text-foreground">MedTest Pro</span>
+              <img 
+                src={pathocare360Logo} 
+                alt="Pathocare360 Logo"
+                className="h-10 w-10 object-contain"
+              />
+              <span className="text-xl font-bold text-foreground">Pathocare360</span>
             </motion.div>
             
             <motion.div 
@@ -215,7 +218,7 @@ export default function Landing() {
           <div className="container mx-auto px-4">
             <FadeInUp>
               <div className="text-center space-y-4 mb-16">
-                <h2 className="text-3xl font-bold text-foreground">Why Choose MedTest Pro?</h2>
+                <h2 className="text-3xl font-bold text-foreground">Why Choose Pathocare360?</h2>
                 <p className="text-muted-foreground max-w-2xl mx-auto">
                   We combine cutting-edge technology with expert medical professionals to deliver accurate, convenient, and reliable pathological testing services.
                 </p>
@@ -356,9 +359,13 @@ export default function Landing() {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="space-y-4">
-              <div className="flex items-center space-x-2">
-                <Shield className="h-6 w-6 text-primary" />
-                <span className="text-lg font-semibold text-foreground">MedTest Pro</span>
+              <div className="flex items-center space-x-3">
+                <img 
+                  src={pathocare360Logo} 
+                  alt="Pathocare360 Logo"
+                  className="h-8 w-8 object-contain"
+                />
+                <span className="text-lg font-semibold text-foreground">Pathocare360</span>
               </div>
               <p className="text-sm text-muted-foreground">
                 Professional pathological testing services with home sample collection and digital reports.
@@ -389,14 +396,14 @@ export default function Landing() {
               <h4 className="font-medium text-foreground">Contact</h4>
               <div className="space-y-2 text-sm text-muted-foreground">
                 <p>Phone: +91-1800-123-4567</p>
-                <p>Email: support@medtestpro.com</p>
+                <p>Email: support@pathocare360.com</p>
                 <p>Available 24/7</p>
               </div>
             </div>
           </div>
           
           <div className="border-t mt-8 pt-8 text-center text-sm text-muted-foreground">
-            <p>&copy; 2024 MedTest Pro. All rights reserved.</p>
+            <p>&copy; 2024 Pathocare360. All rights reserved.</p>
           </div>
         </div>
       </footer>

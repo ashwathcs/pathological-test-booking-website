@@ -1,8 +1,8 @@
-# MedTest Pro - Pathological Test Booking Platform
+# Pathocare360 - Pathological Test Booking Platform
 
 ## Overview
 
-MedTest Pro is a modern React-based frontend application for pathological test booking and management. The platform provides a comprehensive interface for healthcare services including test booking, order tracking, report access, and administrative features. The application is designed as a frontend-only solution that connects to an external backend service for all data operations.
+Pathocare360 is a modern React-based frontend application for pathological test booking and management. The platform provides a comprehensive interface for healthcare services including test booking, order tracking, report access, and administrative features. The application is designed as a frontend-only solution that connects to an external backend service for all data operations.
 
 ## User Preferences
 
