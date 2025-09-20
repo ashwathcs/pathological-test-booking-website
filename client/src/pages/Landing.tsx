@@ -1,3 +1,4 @@
+import { useState } from "react"
 import { ArrowRight, CheckCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -9,9 +10,12 @@ import { StaggerItem } from "@/components/animations/StaggerItem"
 import { FloatingIcon } from "@/components/animations/FloatingIcon"
 import { CountUp } from "@/components/animations/CountUp"
 import { PageTransition } from "@/components/animations/PageTransition"
+import { LoginDialog } from "@/components/LoginDialog"
 import heroImage from "@assets/generated_images/Modern_medical_laboratory_hero_62d380d4.png"
 
 export default function Landing() {
+  const [showLoginDialog, setShowLoginDialog] = useState(false)
+  
   const features = [
     "Home sample collection",
     "Digital reports in 24-48 hours",
@@ -50,8 +54,8 @@ export default function Landing() {
               className="flex items-center"
             >
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Button asChild data-testid="button-login">
-                  <a href="/api/login">Login</a>
+                <Button onClick={() => setShowLoginDialog(true)} data-testid="button-login">
+                  Login
                 </Button>
               </motion.div>
             </motion.div>
@@ -234,6 +238,11 @@ export default function Landing() {
         </div>
       </footer>
       </div>
+      
+      <LoginDialog 
+        open={showLoginDialog} 
+        onOpenChange={setShowLoginDialog}
+      />
     </PageTransition>
   )
 }
