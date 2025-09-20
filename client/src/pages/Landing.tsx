@@ -10,7 +10,6 @@ import { FloatingIcon } from "@/components/animations/FloatingIcon"
 import { CountUp } from "@/components/animations/CountUp"
 import { PageTransition } from "@/components/animations/PageTransition"
 import heroImage from "@assets/generated_images/Modern_medical_laboratory_hero_62d380d4.png"
-import pathocare360Logo from "@assets/generated_images/Transparent_background_Pathocare360_logo_5586723e.png"
 
 export default function Landing() {
   const features = [
@@ -39,14 +38,9 @@ export default function Landing() {
           <div className="container flex h-16 items-center justify-between px-4">
             <motion.div 
               whileHover={{ scale: 1.05 }}
-              className="flex items-center space-x-3"
+              className="flex items-center"
             >
-              <img 
-                src={pathocare360Logo} 
-                alt="Pathocare360 Logo"
-                className="h-10 w-10 object-contain"
-              />
-              <span className="text-xl font-bold text-foreground">Pathocare360</span>
+              <span className="text-2xl font-bold bg-gradient-to-r from-primary to-chart-1 bg-clip-text text-transparent">Pathocare360</span>
             </motion.div>
             
             <motion.div 

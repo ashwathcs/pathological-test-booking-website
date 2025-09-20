@@ -1,6 +1,5 @@
 import { useState } from "react"
 import { Activity, User, Bell, Menu, X } from "lucide-react"
-import pathocare360Logo from "@assets/generated_images/Transparent_background_Pathocare360_logo_5586723e.png"
 import { Link, useLocation } from "wouter"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -25,13 +24,8 @@ export function Header() {
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between px-4">
         {/* Logo */}
-        <div className="flex items-center space-x-3">
-          <img 
-            src={pathocare360Logo} 
-            alt="Pathocare360 Logo"
-            className="h-10 w-10 object-contain"
-          />
-          <span className="text-xl font-bold text-foreground">Pathocare360</span>
+        <div className="flex items-center">
+          <span className="text-2xl font-bold bg-gradient-to-r from-primary to-chart-1 bg-clip-text text-transparent">Pathocare360</span>
         </div>
 
         {/* Desktop Navigation */}
