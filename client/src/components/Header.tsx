@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { Activity, User, Bell, Menu, X } from "lucide-react"
-import pathocare360Logo from "@assets/generated_images/Pathocare360_medical_logo_design_86d559b5.png"
+import pathocare360Logo from "@assets/generated_images/Transparent_background_Pathocare360_logo_5586723e.png"
 import { Link, useLocation } from "wouter"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
