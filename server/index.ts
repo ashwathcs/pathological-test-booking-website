@@ -1,53 +1,44 @@
-import express from "express";
-import { setupVite, serveStatic, log } from "./vite";
+#!/usr/bin/env node
+// Pure frontend server using Vite directly
+// This replaces the Express server for a frontend-only application
 
-const app = express();
+import { exec } from 'child_process';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
 
-// Simple static file serving for frontend only
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const rootDir = join(__dirname, '..');
 
-// Request logging middleware
-app.use((req, res, next) => {
-  const start = Date.now();
-  
-  res.on("finish", () => {
-    const duration = Date.now() - start;
-    if (req.path.startsWith("/api")) {
-      log(`${req.method} ${req.path} ${res.statusCode} in ${duration}ms`);
-    }
-  });
+console.log(`${new Date().toLocaleTimeString()} [frontend] Starting Vite development server...`);
+console.log(`${new Date().toLocaleTimeString()} [frontend] Application will serve on port 5000`);
 
-  next();
+// Start Vite with proper configuration
+const viteProcess = exec('npx vite --port 5000 --host 0.0.0.0', {
+  cwd: rootDir,
+  stdio: 'inherit'
 });
 
-// For frontend-only app, all API calls should go to external backend
-app.use('/api/*', (req, res) => {
-  res.status(503).json({ 
-    message: "API calls should be directed to external backend service",
-    hint: "Configure VITE_API_BASE_URL environment variable"
-  });
+viteProcess.stdout?.on('data', (data) => {
+  console.log(data.toString());
 });
 
-(async () => {
-  // Setup Vite for development or serve static files for production
-  if (app.get("env") === "development") {
-    await setupVite(app);
-  } else {
-    serveStatic(app);
-  }
+viteProcess.stderr?.on('data', (data) => {
+  console.error(data.toString());
+});
 
-  // Serve the frontend app on port 5000
-  const port = parseInt(process.env.PORT || '5000', 10);
-  
-  app.listen({
-    port,
-    host: "0.0.0.0",
-    reusePort: true,
-  }, () => {
-    log(`Frontend application serving on port ${port}`);
-    if (app.get("env") === "development") {
-      log("Configure external backend API URL with VITE_API_BASE_URL");
-    }
-  });
-})();
+viteProcess.on('exit', (code) => {
+  console.log(`${new Date().toLocaleTimeString()} [frontend] Vite process exited with code ${code}`);
+  process.exit(code || 0);
+});
+
+// Handle process termination
+process.on('SIGINT', () => {
+  console.log(`${new Date().toLocaleTimeString()} [frontend] Shutting down...`);
+  viteProcess.kill('SIGINT');
+});
+
+process.on('SIGTERM', () => {
+  console.log(`${new Date().toLocaleTimeString()} [frontend] Shutting down...`);
+  viteProcess.kill('SIGTERM');
+});

@@ -10,15 +10,17 @@ Preferred communication style: Simple, everyday language.
 
 ## System Architecture
 
-### Frontend Architecture
-The application follows a component-based React architecture with TypeScript for type safety:
+### Pure Frontend Architecture
+The application is now a pure React frontend application with complete MVC architecture using mock data services:
 
-- **Framework**: React 18 with TypeScript and Vite for build tooling
+- **Framework**: React 18 with TypeScript and Vite for build tooling (pure frontend, no server)
+- **Architecture**: Clean MVC pattern with Models, Services, Controllers, and Views layers
 - **UI Library**: shadcn/ui components built on Radix UI primitives
 - **Styling**: Tailwind CSS with custom design system variables
-- **State Management**: TanStack Query for server state and local React state for UI state
+- **State Management**: Local React state and custom hooks for state management
 - **Routing**: Wouter for lightweight client-side routing
 - **Animations**: Framer Motion for smooth transitions and interactions
+- **Data Layer**: Mock data services with realistic business logic simulation
 
 ### Design System
 The application implements a healthcare-focused design system:
@@ -37,31 +39,30 @@ Role-based access control with three user types:
 Authentication is handled via external backend with session-based authentication using cookies.
 
 ### Data Flow Pattern
-The application follows a strict separation between frontend and backend:
-- All API calls route through a centralized `apiClient` utility
-- TanStack Query manages caching, synchronization, and error handling
-- Frontend-only application with no direct database access
-- Real-time updates handled through periodic query refetching
+The application follows a clean MVC architecture pattern:
+- **Models**: Define data structures and types (`client/src/models/`)
+- **Services**: Handle business logic and mock data operations (`client/src/services/`)
+- **Controllers**: Custom hooks that connect services to UI components (`client/src/controllers/`)
+- **Views**: Pure presentation layer components that consume controllers
+- No external API dependencies - entirely self-contained with mock data
+- Realistic data simulation including latency, filtering, search, and business logic
 
 ### File Structure Organization
-- `/client/src/components`: Reusable UI components and business logic components
+- `/client/src/models`: Data structures and type definitions for the application domain
+- `/client/src/services`: Business logic services with comprehensive mock data
+- `/client/src/controllers`: Custom hooks that manage state and connect services to views
+- `/client/src/components`: Pure presentation layer UI components
 - `/client/src/pages`: Route-level page components with authentication guards
-- `/client/src/hooks`: Custom React hooks for shared logic
 - `/client/src/lib`: Utility functions and configuration
-- `/shared`: Shared types and schemas (prepared for backend integration)
+- `/server`: Minimal Vite development server (no business logic)
 
-## External Dependencies
+## External Dependencies (None)
 
-### Backend Services
-- **External REST API**: All data operations handled by separate backend service
-- **Environment Configuration**: `VITE_API_BASE_URL` for backend endpoint configuration
-- **Authentication Service**: Session-based auth with cookie management
-
-### Database Schema (Backend)
-While the frontend doesn't directly access the database, it's designed to work with:
-- **PostgreSQL**: Primary database for production data
-- **Drizzle ORM**: Schema definitions for type safety and migrations
-- **Session Management**: Redis or database-backed session storage
+### Pure Frontend Application
+- **No Backend Dependencies**: Application is completely self-contained
+- **Mock Data Services**: All data operations handled by frontend mock services
+- **Local Storage**: Authentication and user preferences stored locally
+- **No Database Required**: All data simulated in memory with realistic behavior
 
 ### Third-Party Integrations
 - **Payment Processing**: Stripe integration for online payments
