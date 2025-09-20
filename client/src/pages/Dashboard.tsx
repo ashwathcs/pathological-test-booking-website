@@ -1,7 +1,6 @@
 import { useEffect } from "react"
 import { useAuth } from "@/controllers"
 import { useToast } from "@/hooks/use-toast"
-import { Header } from "@/components/Header"
 import { Hero } from "@/components/Hero"
 import { PincodeChecker } from "@/components/PincodeChecker"
 import { TestCatalog } from "@/components/TestCatalog"
@@ -41,13 +40,10 @@ export default function Dashboard() {
 
   return (
     <PageTransition>
-      <div className="min-h-screen bg-background">
-        <Header />
-        <main>
-          <Hero />
-          <PincodeChecker />
-          <TestCatalog />
-        </main>
+      <div className="space-y-6">
+        <Hero />
+        <PincodeChecker />
+        <TestCatalog />
       </div>
     </PageTransition>
   )

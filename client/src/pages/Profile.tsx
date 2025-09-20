@@ -1,7 +1,6 @@
 import { useEffect } from "react"
 import { useAuth } from "@/controllers"
 import { useToast } from "@/hooks/use-toast"
-import { Header } from "@/components/Header"
 import { UserProfile } from "@/components/UserProfile"
 
 export default function Profile() {
@@ -37,11 +36,8 @@ export default function Profile() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      <Header />
-      <main>
-        <UserProfile />
-      </main>
+    <div className="p-6">
+      <UserProfile />
     </div>
   )
 }

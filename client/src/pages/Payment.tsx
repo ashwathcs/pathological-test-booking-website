@@ -1,7 +1,6 @@
 import { useEffect } from "react"
 import { useAuth } from "@/controllers"
 import { useToast } from "@/hooks/use-toast"
-import { Header } from "@/components/Header"
 import { PaymentOptions } from "@/components/PaymentOptions"
 
 export default function Payment() {
@@ -37,11 +36,8 @@ export default function Payment() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      <Header />
-      <main>
-        <PaymentOptions />
-      </main>
+    <div className="p-6">
+      <PaymentOptions />
     </div>
   )
 }

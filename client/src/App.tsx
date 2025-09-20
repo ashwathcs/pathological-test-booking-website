@@ -4,6 +4,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { AuthenticatedLayout } from "@/components/AuthenticatedLayout";
 import { useAuth } from "@/controllers";
 import { useLenis } from "@/hooks/useLenis";
 import { AnimatePresence } from "framer-motion";
@@ -28,7 +29,7 @@ function Router() {
         {isLoading || !isAuthenticated ? (
           <Route path="/" component={Landing} />
         ) : (
-          <>
+          <AuthenticatedLayout>
             <Route path="/" component={Dashboard} />
             <Route path="/book-test" component={BookTest} />
             <Route path="/payment" component={Payment} />
@@ -41,7 +42,7 @@ function Router() {
             {((user as any)?.role === 'staff' || (user as any)?.role === 'admin') && (
               <Route path="/staff" component={StaffDashboard} />
             )}
-          </>
+          </AuthenticatedLayout>
         )}
         <Route component={NotFound} />
       </Switch>

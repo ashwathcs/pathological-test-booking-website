@@ -1,5 +1,4 @@
 import { useState } from "react"
-import { Header } from "@/components/Header"
 import { TestCatalog } from "@/components/TestCatalog"
 import { BookingForm } from "@/components/BookingForm"
 
@@ -32,22 +31,19 @@ export default function BookTest() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      <Header />
-      <main>
-        {!showBookingForm ? (
-          <TestCatalog 
-            selectedTests={selectedTests}
-            onTestSelection={handleTestSelection}
-            onProceedToBooking={handleProceedToBooking}
-          />
-        ) : (
-          <BookingForm 
-            selectedTests={selectedTests}
-            onBackToCatalog={handleBackToCatalog}
-          />
-        )}
-      </main>
+    <div className="p-6">
+      {!showBookingForm ? (
+        <TestCatalog 
+          selectedTests={selectedTests}
+          onTestSelection={handleTestSelection}
+          onProceedToBooking={handleProceedToBooking}
+        />
+      ) : (
+        <BookingForm 
+          selectedTests={selectedTests}
+          onBackToCatalog={handleBackToCatalog}
+        />
+      )}
     </div>
   )
 }

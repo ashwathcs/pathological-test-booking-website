@@ -1,7 +1,6 @@
 import { useEffect } from "react"
 import { useAuth } from "@/controllers"
 import { useToast } from "@/hooks/use-toast"
-import { Header } from "@/components/Header"
 import { ReportsAccess } from "@/components/ReportsAccess"
 
 export default function Reports() {
@@ -37,11 +36,8 @@ export default function Reports() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      <Header />
-      <main>
-        <ReportsAccess />
-      </main>
+    <div className="p-6">
+      <ReportsAccess />
     </div>
   )
 }

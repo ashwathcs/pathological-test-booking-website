@@ -1,7 +1,6 @@
 import { useEffect } from "react"
 import { useAuth } from "@/controllers"
 import { useToast } from "@/hooks/use-toast"
-import { Header } from "@/components/Header"
 import { OrderTracking } from "@/components/OrderTracking"
 
 export default function TrackOrder() {
@@ -37,11 +36,8 @@ export default function TrackOrder() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      <Header />
-      <main>
-        <OrderTracking />
-      </main>
+    <div className="p-6">
+      <OrderTracking />
     </div>
   )
 }

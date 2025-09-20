@@ -1,7 +1,6 @@
 import { useEffect } from "react"
 import { useAuth } from "@/controllers"
 import { useToast } from "@/hooks/use-toast"
-import { Header } from "@/components/Header"
 import { AdminDashboard } from "@/components/AdminDashboard"
 
 export default function StaffDashboard() {
@@ -49,11 +48,8 @@ export default function StaffDashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      <Header />
-      <main>
-        <AdminDashboard />
-      </main>
+    <div className="p-6">
+      <AdminDashboard />
     </div>
   )
 }
