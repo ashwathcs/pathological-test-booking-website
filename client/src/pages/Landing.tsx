@@ -47,16 +47,11 @@ export default function Landing() {
               initial={{ x: 100, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="flex items-center space-x-4"
+              className="flex items-center"
             >
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Button variant="ghost" asChild data-testid="button-learn-more">
-                  <a href="#features">Learn More</a>
-                </Button>
-              </motion.div>
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Button asChild data-testid="button-get-started">
-                  <a href="/api/login">Get Started</a>
+                <Button asChild data-testid="button-login">
+                  <a href="/api/login">Login</a>
                 </Button>
               </motion.div>
             </motion.div>
