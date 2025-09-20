@@ -147,7 +147,7 @@ export function NotificationCenter() {
                 >
                   <Badge 
                     variant="destructive" 
-                    className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center text-xs"
+                    className="absolute -top-2 -right-2 h-4 w-4 flex items-center justify-center text-xs p-0 min-w-[1rem] min-h-[1rem]"
                     data-testid="badge-notification-count"
                   >
                     {unreadCount}
